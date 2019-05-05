@@ -140,8 +140,8 @@ public class PonyControllerTest {
         when(service.save(pony)).thenReturn(created);
 
         mockMvc.perform(post("/ponies")
-        .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(MockMvcUtils.convertObjectToJson(pony))) //
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(MockMvcUtils.convertObjectToJson(pony)))
                 .andExpect(status().isOk())
 
                 .andExpect(jsonPath("$.id").value(created.getId()))

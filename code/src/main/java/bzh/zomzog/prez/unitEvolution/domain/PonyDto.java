@@ -1,5 +1,7 @@
 package bzh.zomzog.prez.unitEvolution.domain;
 
+import java.util.Objects;
+
 public class PonyDto {
 
     private String id;
@@ -16,6 +18,10 @@ public class PonyDto {
 
     public PonyType getType() {
         return type;
+    }
+
+    public PonyDto() {
+        // For jackson
     }
 
     public PonyDto(String id, String name, PonyType type) {
@@ -54,5 +60,20 @@ public class PonyDto {
         public PonyDto build() {
             return new PonyDto(id, name, type);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PonyDto ponyDto = (PonyDto) o;
+        return Objects.equals(id, ponyDto.id) &&
+                Objects.equals(name, ponyDto.name) &&
+                type == ponyDto.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type);
     }
 }
