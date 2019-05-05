@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -57,10 +58,13 @@ class PonyServiceTest {
         verify(repository, times(1)).findAllByType(Unicorns);
 
         // THEN
-        assertEquals(1, result.size());
-        assertEquals("5cceb7e452d0e307dd8e7576", result.get(0).getId());
-        assertEquals("Rarity", result.get(0).getName());
-        assertEquals(Unicorns, result.get(0).getType());
+        PonyDto expected = PonyDto.newBuilder()
+                .id("5cceb7e452d0e307dd8e7576")
+                .name("Rarity")
+                .type(Unicorns)
+                .build();
+
+        assertThat(result).containsExactly(expected);
     }
 
     @Test
@@ -78,10 +82,12 @@ class PonyServiceTest {
         Optional<PonyDto> byId = service.getById("5cceb7e452d0e307dd8e7576");
 
         // THEN
-        assertTrue(byId.isPresent());
-        assertEquals("5cceb7e452d0e307dd8e7576", byId.get().getId());
-        assertEquals("Rarity", byId.get().getName());
-        assertEquals(Unicorns, byId.get().getType());
+        PonyDto expected = PonyDto.newBuilder()
+                .id("5cceb7e452d0e307dd8e7576")
+                .name("Rarity")
+                .type(Unicorns)
+                .build();
+        assertThat(byId).isPresent().get().isEqualTo(expected);
     }
 
     @Test

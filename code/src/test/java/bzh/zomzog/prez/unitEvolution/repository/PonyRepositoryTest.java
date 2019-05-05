@@ -14,6 +14,7 @@ import java.util.Optional;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Pegasi;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -44,20 +45,24 @@ class PonyRepositoryTest {
 
         final Optional<Pony> fromDb = repository.findById(pony.getId());
 
-        assertTrue(fromDb.isPresent());
-        Pony ponyFromDb = fromDb.get();
+        Pony expected = Pony.newBuilder()
+                .name("Rainbow Dash")
+                .type(Pegasi)
+                .build();
 
-        assertNotNull(ponyFromDb.getId());
-        assertEquals("Rainbow Dash", ponyFromDb.getName());
-        assertEquals(Pegasi, ponyFromDb.getType());
-        assertTrue(ponyFromDb.getCreationDate() >= now);
+        assertThat(fromDb).isPresent()
+           .get().isEqualToIgnoringGivenFields(expected, "id", "creationDate");
+
+
+        assertThat(fromDb.get().getId()).isNotNull();
+        assertThat(fromDb.get().getCreationDate()).isGreaterThanOrEqualTo(now);
     }
 
     @Test
     void findByIdNotExisting() {
         final Optional<Pony> fromDb = repository.findById(ObjectId.get());
 
-        assertFalse(fromDb.isPresent());
+        assertThat(fromDb).isEmpty();
     }
 
     @Test

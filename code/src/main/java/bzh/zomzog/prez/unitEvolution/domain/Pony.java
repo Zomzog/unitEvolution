@@ -61,14 +61,15 @@ public class Pony {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pony pony = (Pony) o;
-        return Objects.equals(id, pony.id) &&
+        return creationDate == pony.creationDate &&
+                Objects.equals(id, pony.id) &&
                 Objects.equals(name, pony.name) &&
                 type == pony.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type);
+        return Objects.hash(id, name, type, creationDate);
     }
 
     public static final class PonyBuilder {
@@ -108,5 +109,15 @@ public class Pony {
             pony.setCreationDate(creationDate);
             return pony;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Pony{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", creationDate=" + creationDate +
+                '}';
     }
 }
