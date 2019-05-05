@@ -14,10 +14,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 import java.util.Optional;
 
+import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Pegasi;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,20 +39,22 @@ public class PonyRepositoryTest {
 
     @Test
     public void findById() {
-        Pony pony = Pony.newBuilder()
-                .id(ObjectId.get())
+        long now = System.currentTimeMillis();
+
+        Pony pony = mongoTemplate.save(Pony.newBuilder()
                 .name("Rainbow Dash")
                 .type(Pegasi)
-                .build();
-        mongoTemplate.save(pony);
+                .build());
 
         final Optional<Pony> fromDb = repository.findById(pony.getId());
 
         assertTrue(fromDb.isPresent());
         Pony ponyFromDb = fromDb.get();
 
+        assertNotNull(ponyFromDb.getId());
         assertEquals("Rainbow Dash", ponyFromDb.getName());
         assertEquals(Pegasi, ponyFromDb.getType());
+        assertTrue(ponyFromDb.getCreationDate() >= now);
     }
 
     @Test
@@ -63,13 +67,11 @@ public class PonyRepositoryTest {
     @Test
     public void findByType() {
         mongoTemplate.save(Pony.newBuilder()
-                .id(ObjectId.get())
                 .name("Rarity")
                 .type(Unicorns)
                 .build());
 
         mongoTemplate.save(Pony.newBuilder()
-                .id(ObjectId.get())
                 .name("Twilight Sparkle")
                 .type(Unicorns)
                 .build());
@@ -104,5 +106,22 @@ public class PonyRepositoryTest {
 
         assertEquals("Rarity", allByType.get(0).getName());
         assertEquals(Unicorns, allByType.get(0).getType());
+    }
+
+    @Test
+    public void save() {
+        long now = System.currentTimeMillis();
+
+        Pony pony = Pony.newBuilder()
+                .name("Big McIntosh")
+                .type(Earth)
+                .build();
+
+        Pony result = repository.save(pony);
+
+        assertNotNull(result.getId());
+        assertEquals("Big McIntosh", result.getName());
+        assertEquals(Earth, result.getType());
+        assertTrue(result.getCreationDate() >= now);
     }
 }

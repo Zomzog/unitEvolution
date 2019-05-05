@@ -1,7 +1,9 @@
 package bzh.zomzog.prez.unitEvolution.domain;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
@@ -15,6 +17,8 @@ public class Pony {
     private String name;
 
     private PonyType type;
+
+    private long creationDate;
 
     public static PonyBuilder newBuilder() {
         return new PonyBuilder();
@@ -44,10 +48,34 @@ public class Pony {
         this.type = type;
     }
 
+    public long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(long creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pony pony = (Pony) o;
+        return Objects.equals(id, pony.id) &&
+                Objects.equals(name, pony.name) &&
+                type == pony.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type);
+    }
+
     public static final class PonyBuilder {
         private ObjectId id;
         private String name;
         private PonyType type;
+        private long creationDate = System.currentTimeMillis();
 
         private PonyBuilder() {
         }
@@ -67,27 +95,18 @@ public class Pony {
             return this;
         }
 
+        public PonyBuilder creationDate(long creationDate) {
+            this.creationDate = creationDate;
+            return this;
+        }
+
         public Pony build() {
             Pony pony = new Pony();
             pony.setId(id);
             pony.setName(name);
             pony.setType(type);
+            pony.setCreationDate(creationDate);
             return pony;
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pony pony = (Pony) o;
-        return Objects.equals(id, pony.id) &&
-                Objects.equals(name, pony.name) &&
-                type == pony.type;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, type);
     }
 }
