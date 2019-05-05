@@ -1,0 +1,15 @@
+== TL;DR
+
+[fragment]#Design API with a tools#
+
+[fragment]#Generate client and server from it#
+
+[fragment]#Use a mapper to your domain objects#
+
+[fragment]#Show love with your APIs#
+
+
+[NOTE.speaker]
+--
+Plagiat mockito
+--

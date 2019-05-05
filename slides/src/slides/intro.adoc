@@ -1,0 +1,62 @@
+== Eight Gates of unit
+
+image::gates.png[]
+
+== Open Gate
+
+Having (legacy) unit test
+
+[fragment]#Junit 4#
+
+[fragment]#Mockito#
+
+[fragment]#Springboot test#
+
+== Energy Gate
+
+Moving to junit 5
+
+[fragment]#@Ignore#
+
+[fragment]#Exception#
+
+== Life Gate
+
+Using junit 5
+
+[fragment]#Nested#
+
+[fragment]#ClassTest#
+
+[fragment]#Parametrize test#
+
+[fragment]#Tag#
+
+== Wound Gate
+
+
+== Forest Gate
+
+[fragment]#Constructeur injection#
+
+[fragment]#Mockk#
+
+== View Gate
+
+AssertJ
+
+[fragment]#assertEqualsIgnoreProperty#
+
+[fragment]#assertContainInAnyOrder#
+
+== Insanity Gate
+
+Use kotlin 
+
+[fragment]#Backtriks#
+
+[fragment]#Default object builder#
+
+[fragment]#Easy parametrize test#
+
+== Death Gate

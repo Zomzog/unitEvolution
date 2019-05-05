@@ -1,0 +1,24 @@
+:source-highlighter: highlightjs
+:revealjs_theme: league
+:revealjs_progress: true
+:revealjs_slideNumber: true
+:revealjs_history: true
+:revealjs_customtheme: css/zomzog.css
+:revealjs_showNotes: true
+:imagesdir: images
+:customcss: css/custom.css
+
+[%notitle]
+[.title]
+== Title
+Enlarge your test
+
+[NOTE.speaker]
+--
+Trouver un titre
+--
+
+include::slides/intro.adoc[]
+
+include::slides/conclusion/index.adoc[]
+

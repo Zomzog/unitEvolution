@@ -1,0 +1,53 @@
+
+.cross {
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  .cross:before, .cross:after {
+    position: absolute;
+    content: '';
+    background: red;
+    display: block;
+    width: 10%;
+    height: 20px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  
+  .cross:after {
+    -webkit-transform: rotate(45deg);  
+    transform: rotate(45deg);
+  }
+  .nocross {
+    position: relative;
+    padding: 20px;
+    overflow: hidden;
+  }
+  
+  .nocross:before, .nocross:after {
+    position: absolute;
+    content: '';
+    background: transparent;
+    display: block;
+    width: 10%;
+    height: 20px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  
+  .nocross:after {
+    -webkit-transform: rotate(45deg);  
+    transform: rotate(45deg);
+  }

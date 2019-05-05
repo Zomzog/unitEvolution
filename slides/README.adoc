@@ -1,0 +1,7 @@
+= Build
+
+yarn install
+
+= Local server
+
+gulp serve

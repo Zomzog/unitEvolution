@@ -1,0 +1,3 @@
+== Thanks
+
+Source code and slide can be found on https://github.com/Zomzog/unitEvolution
