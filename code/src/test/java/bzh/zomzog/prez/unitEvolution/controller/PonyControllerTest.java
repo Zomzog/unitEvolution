@@ -2,13 +2,11 @@ package bzh.zomzog.prez.unitEvolution.controller;
 
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import bzh.zomzog.prez.unitEvolution.service.PonyService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -23,9 +21,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @WebMvcTest
-public class PonyControllerTest {
+class PonyControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -34,7 +31,7 @@ public class PonyControllerTest {
     private PonyService service;
 
     @Test
-    public void listAll() throws Exception {
+    void listAll() throws Exception {
 
         PonyDto pony1 = PonyDto.newBuilder()
                 .id("id1")
@@ -65,7 +62,7 @@ public class PonyControllerTest {
     }
 
     @Test
-    public void listAllByType() throws Exception {
+    void listAllByType() throws Exception {
 
         PonyDto pony1 = PonyDto.newBuilder()
                 .id("id1")
@@ -96,7 +93,7 @@ public class PonyControllerTest {
     }
 
     @Test
-    public void getById() throws Exception {
+    void getById() throws Exception {
 
         PonyDto pony1 = PonyDto.newBuilder()
                 .id("id1")
@@ -115,7 +112,7 @@ public class PonyControllerTest {
     }
 
     @Test
-    public void getByInvalidId() throws Exception {
+    void getByInvalidId() throws Exception {
 
         when(service.getById("wrongId")).thenReturn(Optional.empty());
 
@@ -124,7 +121,7 @@ public class PonyControllerTest {
     }
 
     @Test
-    public void save() throws Exception {
+    void save() throws Exception {
 
         PonyDto pony = PonyDto.newBuilder()
                 .name("Rarity")

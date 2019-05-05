@@ -8,27 +8,28 @@ import bzh.zomzog.prez.unitEvolution.service.mapper.MongoMapperImpl;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapperImpl;
 import org.bson.types.ObjectId;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-public class PonyServiceTest {
+@ExtendWith(MockitoExtension.class)
+class PonyServiceTest {
 
     @InjectMocks
     private PonyService service;
@@ -40,7 +41,7 @@ public class PonyServiceTest {
     private PonyMapper mapper = new PonyMapperImpl(new MongoMapperImpl());
 
     @Test
-    public void listAll() {
+    void listAll() {
         // GIVEN
         Pony pony = Pony.newBuilder()
             .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
@@ -63,7 +64,7 @@ public class PonyServiceTest {
     }
 
     @Test
-    public void findById() {
+    void findById() {
         // GIVEN
         Pony pony = Pony.newBuilder()
                 .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
@@ -84,7 +85,7 @@ public class PonyServiceTest {
     }
 
     @Test
-    public void save() {
+    void save() {
         // GIVEN
         PonyDto ponyDto = PonyDto.newBuilder()
                 .name("Rarity")
@@ -112,8 +113,8 @@ public class PonyServiceTest {
         assertEquals(Unicorns, result.getType());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void saveErrorWhenForcingId() {
+    @Test
+    void saveErrorWhenForcingId() {
         // GIVEN
         PonyDto ponyDto = PonyDto.newBuilder()
                 .id("5cceb7e452d0e307dd8e7576")
@@ -122,12 +123,15 @@ public class PonyServiceTest {
                 .build();
 
         // WHEN
-        service.save(ponyDto);
+        IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () ->
+                service.save(ponyDto));
+
+        assertEquals("Id must be null", illegalArgumentException.getMessage());
     }
 
     @Test
-    @Ignore
-    public void crazyTestIgnored() {
+    @Disabled
+    void crazyTestIgnored() {
         // GIVEN
         PonyDto ponyDto = PonyDto.newBuilder()
                 .id("5cceb7e452d0e307dd8e7576")

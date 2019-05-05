@@ -1,15 +1,12 @@
 package bzh.zomzog.prez.unitEvolution.repository;
 
 import bzh.zomzog.prez.unitEvolution.domain.Pony;
-import bzh.zomzog.prez.unitEvolution.domain.PonyType;
 import org.bson.types.ObjectId;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,9 +19,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @DataMongoTest
-public class PonyRepositoryTest {
+class PonyRepositoryTest {
 
     @Autowired
     private PonyRepository repository;
@@ -32,13 +28,13 @@ public class PonyRepositoryTest {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @After
-    public void teardown() {
+    @AfterEach
+    void teardown() {
         mongoTemplate.dropCollection(Pony.class);
     }
 
     @Test
-    public void findById() {
+    void findById() {
         Pony pony = mongoTemplate.save(Pony.newBuilder()
                 .name("Rainbow Dash")
                 .type(Pegasi)
@@ -55,14 +51,14 @@ public class PonyRepositoryTest {
     }
 
     @Test
-    public void findByIdNotExisting() {
+    void findByIdNotExisting() {
         final Optional<Pony> fromDb = repository.findById(ObjectId.get());
 
         assertFalse(fromDb.isPresent());
     }
 
     @Test
-    public void findByType() {
+    void findByType() {
         mongoTemplate.save(Pony.newBuilder()
                 .name("Rarity")
                 .type(Unicorns)
@@ -84,7 +80,7 @@ public class PonyRepositoryTest {
     }
 
     @Test
-    public void findByTypeReturnOnlyType() {
+    void findByTypeReturnOnlyType() {
         mongoTemplate.save(Pony.newBuilder()
                 .id(ObjectId.get())
                 .name("Rarity")
