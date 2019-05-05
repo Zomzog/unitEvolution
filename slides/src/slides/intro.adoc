@@ -2,6 +2,14 @@
 
 image::gates.png[]
 
+
+[NOTE.speaker]
+--
+Blague pour ceux qui ne connaissent pas de juste ce dire qu'il y a 8 etapes 
+--
+
+
+
 == Open Gate
 
 Having (legacy) unit test
@@ -12,21 +20,53 @@ Having (legacy) unit test
 
 [fragment]#Springboot test#
 
+
+[NOTE.speaker]
+--
+Dire que c'est un projet classique
+--
+
+
 == Energy Gate
 
 Moving to junit 5
 
-[fragment]#@Ignore#
+[NOTE.speaker]
+--
+Ajouter les dependances, 
+montrer que ca marche toujours avec le vintage runner
+--
 
-[fragment]#Exception#
+=== Ignore
+
+[NOTE.speaker]
+--
+Dire que le disabled va plus loins (genre seulement sur windows...)
+--
+
+=== Exception
+
+[NOTE.speaker]
+--
+Montrer l'interet de tester aussi le contenu de l'exception
+--
 
 == Life Gate
 
 Using junit 5
 
-[fragment]#Nested#
+=== Nested
+[NOTE.speaker]
+--
+Montrer groupement dans le service
+--
 
-[fragment]#Parametrize test#
+=== ClassTest
+
+[NOTE.speaker]
+--
+Faire un sout("HOHOHO") sur le constructeur classe test pour montrer le drame
+--
 
 == Wound Gate
 
@@ -38,9 +78,9 @@ AssertJ
 
 == Forest Gate
 
-[fragment]#ClassTest#
-
 [fragment]#Constructeur injection#
+
+[fragment]#Parametrize test#
 
 == View Gate
 
