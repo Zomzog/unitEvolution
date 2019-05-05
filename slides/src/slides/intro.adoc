@@ -26,28 +26,25 @@ Using junit 5
 
 [fragment]#Nested#
 
-[fragment]#ClassTest#
-
 [fragment]#Parametrize test#
 
-[fragment]#Tag#
-
 == Wound Gate
-
-
-== Forest Gate
-
-[fragment]#Constructeur injection#
-
-[fragment]#Mockk#
-
-== View Gate
 
 AssertJ
 
 [fragment]#assertEqualsIgnoreProperty#
 
 [fragment]#assertContainInAnyOrder#
+
+== Forest Gate
+
+[fragment]#ClassTest#
+
+[fragment]#Constructeur injection#
+
+== View Gate
+
+[fragment]#Tag#
 
 == Insanity Gate
 
@@ -60,3 +57,5 @@ Use kotlin
 [fragment]#Easy parametrize test#
 
 == Death Gate
+
+[fragment]#Mockk#
