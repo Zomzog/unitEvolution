@@ -3,11 +3,11 @@ package bzh.zomzog.prez.unitEvolution.service.mapper;
 import bzh.zomzog.prez.unitEvolution.domain.Pony;
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import org.bson.types.ObjectId;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +15,8 @@ import java.util.List;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
 import static junit.framework.TestCase.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-public class PonyMapperTest {
+@ExtendWith(SpringExtension.class)
+class PonyMapperTest {
 
     @InjectMocks
     private PonyMapperImpl ponyMapper;
@@ -25,7 +25,7 @@ public class PonyMapperTest {
     private MongoMapper mongoMapper;
 
     @Test
-    public void mapPonyList() {
+    void mapPonyList() {
         Pony pony = Pony.newBuilder()
                 .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
                 .name("Big McIntosh")
@@ -44,7 +44,7 @@ public class PonyMapperTest {
     }
 
     @Test
-    public void mapPonyDto() {
+    void mapPonyDto() {
         PonyDto ponyDto = PonyDto.newBuilder()
                 .id("5cceb7e452d0e307dd8e7576")
                 .name("Big McIntosh")
@@ -59,7 +59,7 @@ public class PonyMapperTest {
     }
 
     @Test
-    public void mapPony() {
+    void mapPony() {
         Pony pony = Pony.newBuilder()
                 .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
                 .name("Big McIntosh")

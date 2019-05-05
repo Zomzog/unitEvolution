@@ -1,15 +1,15 @@
 package bzh.zomzog.prez.unitEvolution.service.mapper;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertNull;
 
-public class MongoMapperTest {
+class MongoMapperTest {
 
     private MongoMapper mapper = new MongoMapperImpl();
 
     @Test
-    public void mapNull() {
+    void mapNull() {
         assertNull(mapper.map((String) null));
     }
 }
