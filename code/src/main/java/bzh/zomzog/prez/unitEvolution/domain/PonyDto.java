@@ -76,4 +76,13 @@ public class PonyDto {
     public int hashCode() {
         return Objects.hash(id, name, type);
     }
+
+    @Override
+    public String toString() {
+        return "PonyDto{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

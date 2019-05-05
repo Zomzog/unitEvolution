@@ -1,7 +1,9 @@
 package bzh.zomzog.prez.unitEvolution.domain;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
@@ -89,5 +91,14 @@ public class Pony {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Pony{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                '}';
     }
 }
