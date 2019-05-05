@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Objects;
+
 @Document
 public class Pony {
 
@@ -50,10 +52,6 @@ public class Pony {
         private PonyBuilder() {
         }
 
-        public static PonyBuilder aPony() {
-            return new PonyBuilder();
-        }
-
         public PonyBuilder id(ObjectId id) {
             this.id = id;
             return this;
@@ -76,5 +74,20 @@ public class Pony {
             pony.setType(type);
             return pony;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pony pony = (Pony) o;
+        return Objects.equals(id, pony.id) &&
+                Objects.equals(name, pony.name) &&
+                type == pony.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, type);
     }
 }

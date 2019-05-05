@@ -6,6 +6,7 @@ import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import bzh.zomzog.prez.unitEvolution.domain.PonyType;
 import bzh.zomzog.prez.unitEvolution.repository.PonyRepository;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,10 +28,19 @@ public class PonyService {
     }
 
     public Optional<PonyDto> getById(String id) {
-        throw new TODO();
+        Optional<Pony> byId = repository.findById(new ObjectId(id));
+
+        return byId.map(it -> mapper.map(it));
     }
 
     public PonyDto save(PonyDto pony) {
-        throw new TODO();
+        if (null != pony.getId()) {
+            throw new IllegalArgumentException("Id must be null");
+        }
+        Pony toCreate = mapper.map(pony);
+
+        Pony created = repository.save(toCreate);
+
+        return mapper.map(created);
     }
 }

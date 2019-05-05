@@ -11,8 +11,16 @@ import java.util.List;
 public abstract class PonyMapper {
 
     public abstract List<PonyDto> map(List<Pony> ponies);
+    public abstract Pony map(PonyDto pony);
+    public abstract PonyDto map(Pony pony);
 
-    protected String map(ObjectId objectId) {
+    String map(ObjectId objectId) {
         return objectId.toString();
+    }
+    ObjectId map(String id) {
+        if (null == id) {
+            return null;
+        }
+        return new ObjectId(id);
     }
 }
