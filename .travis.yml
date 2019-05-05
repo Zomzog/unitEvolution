@@ -23,5 +23,5 @@ matrix:
         slack: zomzog:IfP40byf0hVXYeI422owknTy
     - language: java
       before_script:
-        - cd example
+        - cd code
       script:
