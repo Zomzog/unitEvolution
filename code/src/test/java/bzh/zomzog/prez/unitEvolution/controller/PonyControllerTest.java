@@ -2,6 +2,7 @@ package bzh.zomzog.prez.unitEvolution.controller;
 
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import bzh.zomzog.prez.unitEvolution.service.PonyService;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,94 +31,101 @@ class PonyControllerTest {
     @MockBean
     private PonyService service;
 
-    @Test
-    void listAll() throws Exception {
+    @Nested
+    class ListAll {
+        @Test
+        void withoutFilters() throws Exception {
 
-        PonyDto pony1 = PonyDto.newBuilder()
-                .id("id1")
-                .name("Rarity")
-                .type(Unicorns)
-                .build();
+            PonyDto pony1 = PonyDto.newBuilder()
+                    .id("id1")
+                    .name("Rarity")
+                    .type(Unicorns)
+                    .build();
 
-        PonyDto pony2 = PonyDto.newBuilder()
-                .id("id2")
-                .name("Twilight Sparkle")
-                .type(Unicorns)
-                .build();
+            PonyDto pony2 = PonyDto.newBuilder()
+                    .id("id2")
+                    .name("Twilight Sparkle")
+                    .type(Unicorns)
+                    .build();
 
-        when(service.listAll(isNull())).thenReturn(Arrays.asList(pony1, pony2));
+            when(service.listAll(isNull())).thenReturn(Arrays.asList(pony1, pony2));
 
-        mockMvc.perform(get("/ponies"))
-                .andExpect(status().isOk())
+            mockMvc.perform(get("/ponies"))
+                    .andExpect(status().isOk())
 
-                .andExpect(jsonPath("$", hasSize(2)))
+                    .andExpect(jsonPath("$", hasSize(2)))
 
-                .andExpect(jsonPath("$[0].id").value(pony1.getId()))
-                .andExpect(jsonPath("$[0].name").value(pony1.getName()))
-                .andExpect(jsonPath("$[0].type").value(pony1.getType().name()))
+                    .andExpect(jsonPath("$[0].id").value(pony1.getId()))
+                    .andExpect(jsonPath("$[0].name").value(pony1.getName()))
+                    .andExpect(jsonPath("$[0].type").value(pony1.getType().name()))
 
-                .andExpect(jsonPath("$[1].id").value(pony2.getId()))
-                .andExpect(jsonPath("$[1].name").value(pony2.getName()))
-                .andExpect(jsonPath("$[1].type").value(pony2.getType().name()));
+                    .andExpect(jsonPath("$[1].id").value(pony2.getId()))
+                    .andExpect(jsonPath("$[1].name").value(pony2.getName()))
+                    .andExpect(jsonPath("$[1].type").value(pony2.getType().name()));
+        }
+
+        @Test
+        void byType() throws Exception {
+
+            PonyDto pony1 = PonyDto.newBuilder()
+                    .id("id1")
+                    .name("Rarity")
+                    .type(Unicorns)
+                    .build();
+
+            PonyDto pony2 = PonyDto.newBuilder()
+                    .id("id2")
+                    .name("Twilight Sparkle")
+                    .type(Unicorns)
+                    .build();
+
+            when(service.listAll(Unicorns)).thenReturn(Arrays.asList(pony1, pony2));
+
+            mockMvc.perform(get("/ponies?type={0}", Unicorns.name()))
+                    .andExpect(status().isOk())
+
+                    .andExpect(jsonPath("$", hasSize(2)))
+
+                    .andExpect(jsonPath("$[0].id").value(pony1.getId()))
+                    .andExpect(jsonPath("$[0].name").value(pony1.getName()))
+                    .andExpect(jsonPath("$[0].type").value(pony1.getType().name()))
+
+                    .andExpect(jsonPath("$[1].id").value(pony2.getId()))
+                    .andExpect(jsonPath("$[1].name").value(pony2.getName()))
+                    .andExpect(jsonPath("$[1].type").value(pony2.getType().name()));
+        }
     }
 
-    @Test
-    void listAllByType() throws Exception {
+    @Nested
+    class GetById {
 
-        PonyDto pony1 = PonyDto.newBuilder()
-                .id("id1")
-                .name("Rarity")
-                .type(Unicorns)
-                .build();
+        @Test
+        void validId() throws Exception {
 
-        PonyDto pony2 = PonyDto.newBuilder()
-                .id("id2")
-                .name("Twilight Sparkle")
-                .type(Unicorns)
-                .build();
+            PonyDto pony1 = PonyDto.newBuilder()
+                    .id("id1")
+                    .name("Rarity")
+                    .type(Unicorns)
+                    .build();
 
-        when(service.listAll(Unicorns)).thenReturn(Arrays.asList(pony1, pony2));
+            when(service.getById("id1")).thenReturn(Optional.of(pony1));
 
-        mockMvc.perform(get("/ponies?type={0}", Unicorns.name()))
-                .andExpect(status().isOk())
+            mockMvc.perform(get("/ponies/id1"))
+                    .andExpect(status().isOk())
 
-                .andExpect(jsonPath("$", hasSize(2)))
+                    .andExpect(jsonPath("$.id").value(pony1.getId()))
+                    .andExpect(jsonPath("$.name").value(pony1.getName()))
+                    .andExpect(jsonPath("$.type").value(pony1.getType().name()));
+        }
 
-                .andExpect(jsonPath("$[0].id").value(pony1.getId()))
-                .andExpect(jsonPath("$[0].name").value(pony1.getName()))
-                .andExpect(jsonPath("$[0].type").value(pony1.getType().name()))
+        @Test
+        void invalidId() throws Exception {
 
-                .andExpect(jsonPath("$[1].id").value(pony2.getId()))
-                .andExpect(jsonPath("$[1].name").value(pony2.getName()))
-                .andExpect(jsonPath("$[1].type").value(pony2.getType().name()));
-    }
+            when(service.getById("wrongId")).thenReturn(Optional.empty());
 
-    @Test
-    void getById() throws Exception {
-
-        PonyDto pony1 = PonyDto.newBuilder()
-                .id("id1")
-                .name("Rarity")
-                .type(Unicorns)
-                .build();
-
-        when(service.getById("id1")).thenReturn(Optional.of(pony1));
-
-        mockMvc.perform(get("/ponies/id1"))
-                .andExpect(status().isOk())
-
-                .andExpect(jsonPath("$.id").value(pony1.getId()))
-                .andExpect(jsonPath("$.name").value(pony1.getName()))
-                .andExpect(jsonPath("$.type").value(pony1.getType().name()));
-    }
-
-    @Test
-    void getByInvalidId() throws Exception {
-
-        when(service.getById("wrongId")).thenReturn(Optional.empty());
-
-        mockMvc.perform(get("/ponies/wrongId"))
-                .andExpect(status().isNotFound());
+            mockMvc.perform(get("/ponies/wrongId"))
+                    .andExpect(status().isNotFound());
+        }
     }
 
     @Test
