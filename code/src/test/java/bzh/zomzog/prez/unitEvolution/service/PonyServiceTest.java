@@ -8,6 +8,7 @@ import bzh.zomzog.prez.unitEvolution.service.mapper.MongoMapperImpl;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapperImpl;
 import org.bson.types.ObjectId;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -53,6 +54,7 @@ public class PonyServiceTest {
         List<PonyDto> result = service.listAll(Unicorns);
 
         verify(repository, times(1)).findAllByType(Unicorns);
+
         // THEN
         assertEquals(1, result.size());
         assertEquals("5cceb7e452d0e307dd8e7576", result.get(0).getId());
@@ -62,6 +64,7 @@ public class PonyServiceTest {
 
     @Test
     public void findById() {
+        // GIVEN
         Pony pony = Pony.newBuilder()
                 .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
                 .name("Rarity")
@@ -70,7 +73,10 @@ public class PonyServiceTest {
 
         when(repository.findById(new ObjectId("5cceb7e452d0e307dd8e7576"))).thenReturn(Optional.of(pony));
 
+        // WHEN
         Optional<PonyDto> byId = service.getById("5cceb7e452d0e307dd8e7576");
+
+        // THEN
         assertTrue(byId.isPresent());
         assertEquals("5cceb7e452d0e307dd8e7576", byId.get().getId());
         assertEquals("Rarity", byId.get().getName());
@@ -108,6 +114,20 @@ public class PonyServiceTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void saveErrorWhenForcingId() {
+        // GIVEN
+        PonyDto ponyDto = PonyDto.newBuilder()
+                .id("5cceb7e452d0e307dd8e7576")
+                .name("Rarity")
+                .type(Unicorns)
+                .build();
+
+        // WHEN
+        service.save(ponyDto);
+    }
+
+    @Test
+    @Ignore
+    public void crazyTestIgnored() {
         // GIVEN
         PonyDto ponyDto = PonyDto.newBuilder()
                 .id("5cceb7e452d0e307dd8e7576")
