@@ -2,10 +2,10 @@ package bzh.zomzog.prez.unitEvolution.domain;
 
 import org.junit.jupiter.api.Test;
 
-public class PonyDtoTest {
+class PonyDtoTest {
 
     @Test
-    public void defaultConstructorForJackson() {
+    void defaultConstructorForJackson() {
         new PonyDto();
     }
 }

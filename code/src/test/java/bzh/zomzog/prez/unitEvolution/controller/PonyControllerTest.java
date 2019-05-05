@@ -2,7 +2,9 @@ package bzh.zomzog.prez.unitEvolution.controller;
 
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import bzh.zomzog.prez.unitEvolution.service.PonyService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -33,6 +35,8 @@ class PonyControllerTest {
 
     @Nested
     class ListAll {
+
+        @DisplayName("List all without filters")
         @Test
         void withoutFilters() throws Exception {
 
@@ -64,6 +68,7 @@ class PonyControllerTest {
                     .andExpect(jsonPath("$[1].type").value(pony2.getType().name()));
         }
 
+        @DisplayName("List all by type")
         @Test
         void byType() throws Exception {
 
@@ -99,6 +104,7 @@ class PonyControllerTest {
     @Nested
     class GetById {
 
+        @DisplayName("Get by valid id")
         @Test
         void validId() throws Exception {
 
@@ -118,6 +124,7 @@ class PonyControllerTest {
                     .andExpect(jsonPath("$.type").value(pony1.getType().name()));
         }
 
+        @DisplayName("Get by invalid id return not found")
         @Test
         void invalidId() throws Exception {
 
@@ -128,6 +135,7 @@ class PonyControllerTest {
         }
     }
 
+    @DisplayName("Create new pony")
     @Test
     void save() throws Exception {
 

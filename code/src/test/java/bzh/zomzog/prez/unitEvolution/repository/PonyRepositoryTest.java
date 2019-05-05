@@ -14,10 +14,9 @@ import java.util.Optional;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Pegasi;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @DataMongoTest
 class PonyRepositoryTest {
@@ -42,19 +41,23 @@ class PonyRepositoryTest {
 
         final Optional<Pony> fromDb = repository.findById(pony.getId());
 
-        assertTrue(fromDb.isPresent());
-        Pony ponyFromDb = fromDb.get();
+        Pony expected = Pony.newBuilder()
+                .name("Rainbow Dash")
+                .type(Pegasi)
+                .build();
 
-        assertNotNull(ponyFromDb.getId());
-        assertEquals("Rainbow Dash", ponyFromDb.getName());
-        assertEquals(Pegasi, ponyFromDb.getType());
+        assertThat(fromDb).isPresent()
+                .get().isEqualToIgnoringGivenFields(expected, "id");
+
+
+        assertThat(fromDb.get().getId()).isNotNull();
     }
 
     @Test
     void findByIdNotExisting() {
         final Optional<Pony> fromDb = repository.findById(ObjectId.get());
 
-        assertFalse(fromDb.isPresent());
+        assertThat(fromDb).isEmpty();
     }
 
     @Test
@@ -71,12 +74,21 @@ class PonyRepositoryTest {
 
         List<Pony> allByType = repository.findAllByType(Unicorns);
 
-        assertEquals(2, allByType.size());
 
-        assertEquals("Rarity", allByType.get(0).getName());
-        assertEquals(Unicorns, allByType.get(0).getType());
-        assertEquals("Twilight Sparkle", allByType.get(1).getName());
-        assertEquals(Unicorns, allByType.get(1).getType());
+        Pony rarity = Pony.newBuilder()
+                .name("Rarity")
+                .type(Unicorns)
+                .build();
+
+        Pony twilightSparkle = Pony.newBuilder()
+                .name("Twilight Sparkle")
+                .type(Unicorns)
+                .build();
+
+
+        assertThat(allByType)
+                .usingElementComparatorIgnoringFields("id")
+                .containsExactlyInAnyOrder(rarity, twilightSparkle);
     }
 
     @Test
@@ -95,14 +107,18 @@ class PonyRepositoryTest {
 
         List<Pony> allByType = repository.findAllByType(Unicorns);
 
-        assertEquals(1, allByType.size());
+        Pony rarity = Pony.newBuilder()
+                .name("Rarity")
+                .type(Unicorns)
+                .build();
 
-        assertEquals("Rarity", allByType.get(0).getName());
-        assertEquals(Unicorns, allByType.get(0).getType());
+        assertThat(allByType)
+                .usingElementComparatorIgnoringFields("id")
+                .containsExactly(rarity);
     }
 
     @Test
-    public void save() {
+    void save() {
         Pony pony = Pony.newBuilder()
                 .name("Big McIntosh")
                 .type(Earth)
@@ -110,8 +126,13 @@ class PonyRepositoryTest {
 
         Pony result = repository.save(pony);
 
-        assertNotNull(result.getId());
-        assertEquals("Big McIntosh", result.getName());
-        assertEquals(Earth, result.getType());
+        Pony bigMcIntosh = Pony.newBuilder()
+                .name("Big McIntosh")
+                .type(Earth)
+                .build();
+
+        assertThat(result)
+                .isEqualToIgnoringGivenFields(bigMcIntosh, "id")
+                .extracting("id").doesNotContainNull();
     }
 }

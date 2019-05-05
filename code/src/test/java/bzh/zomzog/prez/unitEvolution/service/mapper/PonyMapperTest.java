@@ -2,6 +2,7 @@ package bzh.zomzog.prez.unitEvolution.service.mapper;
 
 import bzh.zomzog.prez.unitEvolution.domain.Pony;
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
+import org.assertj.core.api.Condition;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
 import static junit.framework.TestCase.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 class PonyMapperTest {
@@ -34,13 +36,15 @@ class PonyMapperTest {
 
         List<PonyDto> result = ponyMapper.map(Arrays.asList(pony, pony, pony));
 
-        assertEquals(3, result.size());
-        result.forEach(it -> {
-                    assertEquals("5cceb7e452d0e307dd8e7576", it.getId());
-                    assertEquals("Big McIntosh", it.getName());
-                    assertEquals(Earth, it.getType());
-                }
-        );
+
+        PonyDto expected = PonyDto.newBuilder()
+                .id("5cceb7e452d0e307dd8e7576")
+                .name("Big McIntosh")
+                .type(Earth)
+                .build();
+
+
+        assertThat(result).areExactly(3, new Condition<>(expected::equals, ""));
     }
 
     @Test
@@ -53,9 +57,13 @@ class PonyMapperTest {
 
         Pony result = ponyMapper.map(ponyDto);
 
-        assertEquals(new ObjectId("5cceb7e452d0e307dd8e7576"), result.getId());
-        assertEquals("Big McIntosh", result.getName());
-        assertEquals(Earth, result.getType());
+        Pony expected = Pony.newBuilder()
+                .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
+                .name("Big McIntosh")
+                .type(Earth)
+                .build();
+
+        assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -68,8 +76,12 @@ class PonyMapperTest {
 
         PonyDto result = ponyMapper.map(pony);
 
-        assertEquals("5cceb7e452d0e307dd8e7576", result.getId());
-        assertEquals("Big McIntosh", result.getName());
-        assertEquals(Earth, result.getType());
+        PonyDto expected = PonyDto.newBuilder()
+                .id("5cceb7e452d0e307dd8e7576")
+                .name("Big McIntosh")
+                .type(Earth)
+                .build();
+
+        assertThat(result).isEqualTo(expected);
     }
 }

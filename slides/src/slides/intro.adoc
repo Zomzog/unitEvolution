@@ -78,13 +78,11 @@ AssertJ
 
 == Forest Gate
 
-[fragment]#Constructeur injection#
-
 [fragment]#Parametrize test#
 
 == View Gate
 
-[fragment]#Tag#
+[fragment]#DisplayName#
 
 == Insanity Gate
 
@@ -98,4 +96,14 @@ Use kotlin
 
 == Death Gate
 
+[fragment]#Class package protected#
+
+[fragment]#Tag#
+
 [fragment]#Mockk#
+
+[fragment]#Assertk#
+
+[fragment]#Constructeur injection#
+
+[fragment]#Mutation testing#

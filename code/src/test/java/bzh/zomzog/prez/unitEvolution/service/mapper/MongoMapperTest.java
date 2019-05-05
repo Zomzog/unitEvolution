@@ -2,7 +2,7 @@ package bzh.zomzog.prez.unitEvolution.service.mapper;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class MongoMapperTest {
 
@@ -10,6 +10,6 @@ class MongoMapperTest {
 
     @Test
     void mapNull() {
-        assertNull(mapper.map((String) null));
+        assertThat(mapper.map((String) null)).isNull();
     }
 }
