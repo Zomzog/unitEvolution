@@ -4,6 +4,7 @@ package bzh.zomzog.prez.unitEvolution.service;
 import bzh.zomzog.prez.unitEvolution.domain.Pony;
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import bzh.zomzog.prez.unitEvolution.repository.PonyRepository;
+import bzh.zomzog.prez.unitEvolution.service.mapper.MongoMapperImpl;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapperImpl;
 import org.bson.types.ObjectId;
@@ -35,7 +36,7 @@ public class PonyServiceTest {
     private PonyRepository repository;
 
     @Spy
-    private PonyMapper mapper = new PonyMapperImpl();
+    private PonyMapper mapper = new PonyMapperImpl(new MongoMapperImpl());
 
     @Test
     public void listAll() {
