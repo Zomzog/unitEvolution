@@ -5,6 +5,7 @@ import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
 import bzh.zomzog.prez.unitEvolution.domain.PonyType;
 import org.assertj.core.api.Condition;
 import org.bson.types.ObjectId;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,6 +30,7 @@ class PonyMapperTest {
     @Spy
     private MongoMapper mongoMapper;
 
+    @DisplayName("Map pony list to ponyDto list")
     @Test
     void mapPonyList() {
         Pony pony = Pony.newBuilder()
@@ -50,6 +52,7 @@ class PonyMapperTest {
         assertThat(result).areExactly(3, new Condition<>(expected::equals, ""));
     }
 
+    @DisplayName("Map ponyDto to pony")
     @ParameterizedTest
     @EnumSource(PonyType.class)
     void mapPonyList(PonyType type) {
@@ -70,6 +73,7 @@ class PonyMapperTest {
         assertThat(result).isEqualTo(expected);
     }
 
+    @DisplayName("Map pony list to ponyDto list")
     @Test
     void mapPony() {
         Pony pony = Pony.newBuilder()
