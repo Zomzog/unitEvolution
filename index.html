@@ -67,7 +67,8 @@ class ListAll { }</code></pre></div></div></section></section>
 <section><section id="insanity_gate"><h2>Insanity Gate</h2><div class="paragraph"><p>Use kotlin</p></div></section><section id="backtriks"><h2>Backtriks</h2><div class="paragraph"><p>Method name is the new DisplayName</p></div>
 <div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun `Map pony list to ponyDto list`() { }</code></pre></div></div></section><section id="default_object_builder"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">data class Pony(val name:String, val type:String)
 
-fun newPony(name: String = "Pinkie Pie", type: String = "Earth")
+fun newPony(name: String = "Pinkie Pie",
+            type: String = "Earth")
         = Pony(name, type)
 
 fun myTest() {
@@ -77,21 +78,18 @@ fun myTest() {
 fun `get by name`(data: TestData) {
     assertThat(getByName(data.name)).isEqualTo(data.expected)
 }
-
 private fun validTokenProvider() = Stream.of(
-    TestData(input = "Pinkie Pie", expected = newPony("Pinkie Pie")),
-    TestData(input = "Big McIntosh", expected = newPony("Big McIntosh"))
+    TestData("Pinkie Pie", newPony("Pinkie Pie")),
+    TestData("Big McIntosh", newPony("Big McIntosh"))
 )
-
 data class TestData(
     val name: String,
     val expected: Pony
 )</code></pre></div></div></section></section>
-<section id="death_gate"><h2>Death Gate</h2><div class="paragraph"><p><span class="fragment">Class package protected</span></p></div>
+<section id="death_gate"><h2>Death Gate</h2><div class="paragraph"><p><span class="fragment">Package protected</span></p></div>
 <div class="paragraph"><p><span class="fragment">Tag</span></p></div>
 <div class="paragraph"><p><span class="fragment">Mockk</span></p></div>
 <div class="paragraph"><p><span class="fragment">Assertk</span></p></div>
-<div class="paragraph"><p><span class="fragment">Constructeur injection</span></p></div>
 <div class="paragraph"><p><span class="fragment">Mutation testing</span></p></div></section>
 <section id="tldr"><h2>TL;DR</h2><div class="paragraph"><p><span class="fragment">Show love with your tests!</span></p></div>
 <div class="paragraph"><p><span class="fragment">Organize them</span></p></div>
