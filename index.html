@@ -2,11 +2,15 @@
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "node_modules/reveal.js/css/print/pdf.css" : "node_modules/reveal.js/css/print/paper.css";
-document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="node_modules/reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="css/custom.css"></head><body><div class="reveal"><div class="slides"><section id="title" class="title"><div class="paragraph"><p>Trouver un titre</p></div>
+document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="node_modules/reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" href="css/custom.css"></head><body><div class="reveal"><div class="slides"><section id="title" class="title"><div class="paragraph"><p>Unit toolkit</p></div>
 <aside class="notes"><div class="paragraph"><p>Enlarge your test</p></div>
 <div class="paragraph"><p>Unit evolution</p></div>
 <div class="paragraph"><p>My Little Unit Toolbox</p></div></aside></section>
-<section id="good_unit_test"><h2>Good unit test</h2><div class="paragraph"><p><span class="fragment">Independent and isolated</span></p></div>
+<section id="from_legacy"><h2>From legacy</h2><div class="paragraph"><p><span class="fragment">Junit 4</span></p></div>
+<div class="paragraph"><p><span class="fragment">Springboot test</span></p></div>
+<div class="paragraph"><p><span class="fragment">Mockito</span></p></div>
+<aside class="notes"><div class="paragraph"><p>Junit 4 car SpringBoot donc Mockito</p></div></aside></section>
+<section id="good_unit_test" data-transition="fade"><h2>Good unit test</h2><div class="paragraph"><p><span class="fragment">Independent and isolated</span></p></div>
 <div class="paragraph"><p><span class="fragment">Repeatable</span></p></div>
 <div class="paragraph"><p><span class="fragment">Fast</span></p></div>
 <div class="paragraph"><p><span class="fragment">Descriptive</span></p></div>
@@ -14,83 +18,336 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
 <div class="paragraph"><p>Ne pas utiliser de random quand la valeur a de l&#8217;importance</p></div>
 <div class="paragraph"><p>Si c&#8217;est trop lent on fini par ne pas les executer</p></div>
 <div class="paragraph"><p>Les tests veulent nous parler</p></div></aside></section>
-<section><section id="from_legacy"><h2>From legacy</h2><div class="paragraph"><p><span class="fragment">Junit 4</span></p></div><div class="paragraph"><p><span class="fragment">Mockito</span></p></div><div class="paragraph"><p><span class="fragment">Springboot test</span></p></div><aside class="notes"><div class="paragraph"><p>Dire que c&#8217;est un projet classique</p></div></aside></section><section id="data_mongo_test"><h2>Data Mongo Test</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">import org.junit.Test;
-import org.junit.runner.RunWith;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@DataMongoTest
-public class PonyRepositoryTest {
-
-    @Test
-    public void findById() {
-        Optional&lt;Pony&gt; fromDb = repository.findById(id);
-
-        Pony ponyFromDb = fromDb.get();
-        assertEquals("Rainbow Dash", ponyFromDb.getName());
-    }</code></pre></div></div></section></section>
+<section id="good_unit_test_2" data-transition="fade"><h2>Good unit test</h2><div class="paragraph"><p>Independent and isolated</p></div>
+<div class="paragraph"><p>Repeatable</p></div>
+<div class="paragraph"><p>Fast</p></div>
+<div class="paragraph"><p><strong>Descriptive</strong></p></div></section>
+<section id="descriptive_coverage"><h2>Descriptive coverage</h2><div class="paragraph"><p>Which tests covers deleteAll function?</p></div></section>
+<section id="mixed" data-transition="fade"><h2>Mixed</h2><div class="imageblock" style=""><img src="images/test-result-base.png" alt="test result base"></div></section>
+<section id="mixed_2" data-transition="fade"><h2>Mixed</h2><div class="imageblock" style=""><img src="images/test-result-base-deleteall.png" alt="test result base deleteall"></div></section>
+<section id="descriptive_coverage_2"><h2>Descriptive coverage</h2><div class="paragraph"><p>What is the error?</p></div></section>
+<section id="descriptive_errors" data-transition="fade"><h2>Descriptive errors</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertEquals("Must contains 2 ponies", 2, ponies.size());</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.
+.</code></pre></div></div></section>
+<section id="descriptive_errors_2" data-transition="fade"><h2>Descriptive errors</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertEquals("Must contains 2 ponies", 2, ponies.size());</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">java.lang.AssertionError: Must contains 2 ponies
+Expected :2
+Actual   :1</code></pre></div></div></section>
 <section id="eight_gates_of_unit"><h2>Eight Gates of unit</h2><div class="imageblock" style=""><img src="images/gates.png" alt="gates"></div>
 <aside class="notes"><div class="paragraph"><p>Blague pour ceux qui ne connaissent pas de juste ce dire qu&#8217;il y a 8 etapes</p></div></aside></section>
-<section><section id="open_gate"><h2>Open Gate</h2><div class="paragraph"><p>Moving to junit 5</p></div><aside class="notes"><div class="paragraph"><p>Ajouter les dependances,
-montrer que ca marche toujours avec le vintage runner</p></div></aside></section><section id="dependency" data-transition="fade"><h2>Dependency</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">testCompile 'junit:junit:4.12'</code></pre></div></div></section><section id="dependency_2" data-transition="fade"><h2>Dependency</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">testCompile("org.junit.jupiter:junit-jupiter-api:5.3.2")
-testRuntime("org.junit.jupiter:junit-jupiter-engine:5.3.2")</code></pre></div></div>
-<aside class="notes"><div class="paragraph"><p>Parler de l&#8217;engine legacy pour les tests junit 4</p></div></aside></section></section>
-<section><section id="energy_gate"><h2>Energy Gate</h2></section><section id="import"><h2>Import</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">import org.junit.Test;</code></pre></div></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">import org.junit.jupiter.api.Test;</code></pre></div></div></section><section id="runwith_and_rules" data-transition="fade"><h2>RunWith and Rules</h2><div class="paragraph nocross"><p>@Rule @RunWith @ClassRule</p></div></section><section id="runwith_and_rules_2" data-transition="fade"><h2>RunWith and Rules</h2><div class="paragraph cross"><p>@Rule @RunWith @ClassRule</p></div>
+<section id="open_gate"><h2>Open Gate</h2><div class="paragraph"><p>Moving to junit 5</p></div>
+<aside class="notes"><div class="paragraph"><p>Ajouter les dependances,
+montrer que ca marche toujours avec le vintage runner</p></div></aside></section>
+<section id="dependency" data-transition="fade"><h2>Dependency</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">testCompile("junit:junit:4.12")</code></pre></div></div></section>
+<section id="dependency_2" data-transition="fade"><h2>Dependency</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">testCompile("org.junit.jupiter:junit-jupiter-api:5.4.2")
+testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")</code></pre></div></div>
+<aside class="notes"><div class="paragraph"><p>Junit 5 = multiple modules</p></div></aside></section>
+<section id="engines"><h2>Engines</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">testRuntime("org.junit.vintage:junit-vintage-engine:5.4.2")</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")</code></pre></div></div>
+<div class="imageblock" style=""><img src="images/engines.png" alt="engines"></div>
+<aside class="notes"><div class="paragraph"><p>Parler de l&#8217;engine vintage pour les tests junit 4</p></div></aside></section>
+<section id="energy_gate"><h2>Energy Gate</h2></section>
+<section id="import" data-transition="fade"><h2>Import</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">import org.junit.Test;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.</code></pre></div></div></section>
+<section id="import_2" data-transition="fade"><h2>Import</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">import org.junit.Test;</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">import org.junit.jupiter.api.Test;</code></pre></div></div></section>
+<section id="runwith_and_rules" data-transition="fade"><h2>RunWith and Rules</h2><div class="paragraph nocross"><p>@Rule @RunWith @ClassRule</p></div>
+<div class="paragraph nocross"><p>&#160;<br></p></div></section>
+<section id="runwith_and_rules_2" data-transition="fade"><h2>RunWith and Rules</h2><div class="paragraph cross"><p>@Rule @RunWith @ClassRule</p></div>
 <div class="paragraph"><p>@ExtendWith</p></div>
-<aside class="notes"><div class="paragraph"><p>Dire que c&#8217;est repetable contrairement au runWith</p></div></aside></section><section id="exception" data-transition="fade"><h2>Exception</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Test(expected = MyException.class)</code></pre></div></div></section><section id="exception_2" data-transition="fade"><h2>Exception</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">MyException e = assertThrows(
+<aside class="notes"><div class="paragraph"><p>Dire que c&#8217;est repetable contrairement au runWith</p></div></aside></section>
+<section id="exception" data-transition="fade"><h2>Exception</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Test(expected = MyException.class)
+// MyTest</code></pre></div></div></section>
+<section id="exception_2" data-transition="fade"><h2>Exception</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">MyException e = assertThrows(
                   MyException.class,
                   () -&gt; service.save(ponyDto));</code></pre></div></div>
-<aside class="notes"><div class="paragraph"><p>Montrer l&#8217;interet de tester aussi le contenu de l&#8217;exception</p></div></aside></section><section id="ignore" data-transition="fade"><h2>Ignore</h2><div class="paragraph"><p>@Ignore</p></div>
+<aside class="notes"><div class="paragraph"><p>Parler l&#8217;interet de tester aussi le contenu de l&#8217;exception</p></div></aside></section>
+<section id="ignore" data-transition="fade"><h2>Ignore</h2><div class="paragraph"><p>@Ignore</p></div>
 <div class="paragraph"><p>&#160;<br></p></div>
-<div class="paragraph"><p>&#160;<br></p></div></section><section id="disabled" data-transition="fade"><h2>Disabled</h2><div class="paragraph"><p>@Disabled</p></div>
+<div class="paragraph"><p>&#160;<br></p></div></section>
+<section id="disabled" data-transition="fade"><h2>Disabled</h2><div class="paragraph"><p>@Disabled</p></div>
 <div class="paragraph"><p><span class="fragment">@DisabledOnOs(OS.WINDOWS)</span></p></div>
 <div class="paragraph"><p><span class="fragment">@DisabledOnJre(JRE.JAVA_8)</span></p></div>
-<aside class="notes"><div class="paragraph"><p>Dire que le disabled va plus loins (genre seulement sur windows&#8230;&#8203;)</p></div></aside></section></section>
-<section><section id="life_gate"><h2>Life Gate</h2><div class="paragraph"><p>Class with hundred of tests</p></div><div class="paragraph"><p><span class="fragment">Messy</span></p></div><div class="paragraph"><p><span class="fragment">Slow</span></p></div></section><section id="demo"><h2>Demo ?</h2></section><section id="nested"><h2>Nested</h2><aside class="notes"><div class="paragraph"><p>Montrer groupement dans le service</p></div></aside></section><section id="classtest"><h2>ClassTest</h2><aside class="notes"><div class="paragraph"><p>Faire un sout("HOHOHO") sur le constructeur classe test pour montrer le drame</p></div></aside></section></section>
-<section><section id="wound_gate"><h2>Wound Gate</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertEquals(2. myList.size())
-assertEquals("Rainbow Dash", myList.get(0).getName())
-assertEquals("Pinkie Pie", myList.get(1).getName())</code></pre></div></div></section><section id="assertj"><h2>AssertJ</h2><div class="paragraph"><p>Fluent assertions for java</p></div>
-<div class="paragraph"><p><span class="fragment">assertEqualsIgnoreProperty</span></p></div>
-<div class="paragraph"><p><span class="fragment">assertContainInAnyOrder</span></p></div></section><section id="notitle"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(fellowshipOfTheRing).hasSize(9)
+<aside class="notes"><div class="paragraph"><p>Dire que le disabled va plus loins (genre seulement sur windows&#8230;&#8203;)</p></div></aside></section>
+<section id="life_gate"><h2>Life Gate</h2><div class="paragraph"><p>Class with hundred of tests</p></div></section>
+<section id="messy" data-transition="fade"><h2>Messy</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">class PonyControllerTest {
+
+    @Test
+    void withoutFilters() throws Exception { ... }
+
+    @Test
+    void byType() throws Exception { ... }
+
+    @Test
+    void create() throws Exception { ... }
+
+
+    ...
+}</code></pre></div></div></section>
+<section id="nested" data-transition="fade"><h2>Nested</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">class PonyControllerTest {
+    @Nested
+    class ListAll {
+
+        @Test
+        void withoutFilters() throws Exception { ... }
+
+        @Test
+        void byType() throws Exception { ... }
+    }
+
+    @Nested
+    class Create { ... }
+}</code></pre></div></div></section>
+<section id="nested_2" data-transition="fade"><h2>Nested</h2><div class="imageblock" style=""><img src="images/defaultRun.png" alt="defaultRun" width="50%"></div>
+<div class="imageblock hidden" style=""><img src="images/nestedRun.png" alt="nestedRun" width="50%"></div></section>
+<section id="nested_3" data-transition="fade"><h2>Nested</h2><div class="imageblock" style=""><img src="images/defaultRun.png" alt="defaultRun" width="50%"></div>
+<div class="imageblock" style=""><img src="images/nestedRun.png" alt="nestedRun" width="50%"></div></section>
+<section id="slow" data-transition="fade"><h2>Slow</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">// default @TestInstance(Lifecycle.PER_METHOD)
+class PonyServiceTest {
+    private SlowToCreate service = new SlowToCreate();
+}</code></pre></div></div></section>
+<section id="classtest" data-transition="fade"><h2>ClassTest</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@TestInstance(Lifecycle.PER_CLASS)
+class PonyServiceTest {
+    private SlowToCreate service = new SlowToCreate();
+}</code></pre></div></div></section>
+<section id="classtest_global" data-transition="fade"><h2>ClassTest global</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">// junit-platform.properties
+junit.jupiter.testinstance.lifecycle.default = per_class</code></pre></div></div></section>
+<section id="wound_gate" data-transition="fade"><h2>Wound Gate</h2><div class="paragraph"><p>Understand the error</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertEquals(2, myList.size());
+assertEquals("Rainbow Dash", myList.get(0).getName());
+assertEquals("Pinkie Pie", myList.get(1).getName());</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">org.opentest4j.AssertionFailedError:
+Expected :2
+Actual   :1</code></pre></div></div></section>
+<section id="wound_gate_2" data-transition="fade"><h2>Wound Gate</h2><div class="paragraph"><p>Understand the error</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertEquals(2, myList.size());
+assertEquals("Rainbow Dash", myList.get(0).getName());
+assertEquals("Pinkie Pie", myList.get(1).getName());</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">org.opentest4j.AssertionFailedError:
+Expected :2
+Actual   :1</code></pre></div></div></section>
+<section id="wound_gate_3" data-transition="fade"><h2>Wound Gate</h2><div class="paragraph"><p>Understand the error</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertEquals(2, myList.size());
+assertEquals("Rainbow Dash", myList.get(0).getName());
+assertEquals("Pinkie Pie", myList.get(1).getName());</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">org.opentest4j.AssertionFailedError:
+Expected :Rainbow Dash
+Actual   :Pinkie Pie</code></pre></div></div></section>
+<section id="assertj"><h2>AssertJ</h2><div class="paragraph"><p>Fluent assertions for java</p></div></section>
+<section id="collection" data-transition="fade"><h2>Collection</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(myList)
+    .contains(pinkiePie, rainbowDash);</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.</code></pre></div></div></section>
+<section id="collection_2" data-transition="fade"><h2>Collection</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(myList)
+    .contains(pinkiePie, rainbowDash);</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(myList)
+    .containsExactlyInAnyOrder(pinkiePie, rainbowDash);</code></pre></div></div></section>
+<section id="collection_3" data-transition="fade"><h2>Collection</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">java.lang.AssertionError:
+Expecting:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]&gt;
+
+
+
+
+
+
+
+at bzh.MyTest.test(MyTest.java:25)</code></pre></div></div></section>
+<section id="collection_4" data-transition="fade"><h2>Collection</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">java.lang.AssertionError:
+Expecting:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]&gt;
+to contain exactly in any order:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Rainbow Dash', type=null}]&gt;
+
+
+
+
+at bzh.MyTest.test(MyTest.java:25)</code></pre></div></div></section>
+<section id="collection_5" data-transition="fade"><h2>Collection</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">java.lang.AssertionError:
+Expecting:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]&gt;
+to contain exactly in any order:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Rainbow Dash', type=null}]&gt;
+elements not found:
+  &lt;[PonyDto{id='null', name='Rainbow Dash', type=null}]&gt;
+
+
+at bzh.MyTest.test(MyTest.java:25)</code></pre></div></div></section>
+<section id="collection_6" data-transition="fade"><h2>Collection</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">java.lang.AssertionError:
+Expecting:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]&gt;
+to contain exactly in any order:
+  &lt;[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Rainbow Dash', type=null}]&gt;
+elements not found:
+  &lt;[PonyDto{id='null', name='Rainbow Dash', type=null}]&gt;
+and elements not expected:
+  &lt;[PonyDto{id='null', name='Big McIntosh', type=null}]&gt;
+at bzh.MyTest.test(MyTest.java:25)</code></pre></div></div></section>
+<section id="equals" data-transition="fade"><h2>Equals</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.</code></pre></div></div></section>
+<section id="equals_2" data-transition="fade"><h2>Equals</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(fromDB)
+    .isEqualToIgnoringGivenFields(expected, "id");</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.</code></pre></div></div></section>
+<section id="equals_3" data-transition="fade"><h2>Equals</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(fromDB)
+    .isEqualToIgnoringGivenFields(expected, "id");</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(fromDB)
+    .isEqualToComparingFieldByField(expected);</code></pre></div></div></section>
+<section id="chaining"><h2>Chaining</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">assertThat(fellowshipOfTheRing).hasSize(9)
                                .contains(frodo, sam)
-                               .doesNotContain(sauron);</code></pre></div></div></section></section>
-<section><section id="forest_gate"><h2>Forest Gate</h2><div class="paragraph"><p>Repeate the same test with differents input / output</p></div><div class="paragraph"><p><span class="fragment">Parameterized test</span></p></div></section><section id="demo_2"><h2>Demo ?</h2></section><section id="notitle_2"><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@ParameterizedTest
-@EnumSource(PonyType.class)
-void mapPonyList(PonyType type) {
-    // doSomthing
+                               .doesNotContain(sauron);</code></pre></div></div></section>
+<section id="forest_gate" data-transition="fade"><h2>Forest Gate</h2><div class="paragraph"><p>Multiple input/output</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.
+.
+.
+.
+.</code></pre></div></div></section>
+<section id="forest_gate_2" data-transition="fade"><h2>Forest Gate</h2><div class="paragraph"><p>Multiple input/output</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Test
+public void hasWings() {
+    assertTrue(service.hasWings(Pegasi));
+
+
+}</code></pre></div></div></section>
+<section id="forest_gate_3" data-transition="fade"><h2>Forest Gate</h2><div class="paragraph"><p>Multiple input/output</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Test
+public void hasWings() {
+    assertTrue(service.hasWings(Pegasi));
+    assertFalse(service.hasWings(Unicorns));
+
+}</code></pre></div></div></section>
+<section id="forest_gate_4" data-transition="fade"><h2>Forest Gate</h2><div class="paragraph"><p>Multiple input/output</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Test
+public void hasWings() {
+    assertTrue(service.hasWings(Pegasi));
+    assertFalse(service.hasWings(Unicorns));
+    assertFalse(service.hasWings(Earth));
+}</code></pre></div></div></section>
+<section id="parameterizedtest"><h2>ParameterizedTest</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@ParameterizedTest
+@EnumSource(FlyingType.class)
+void hasWings(FlyingType type) {
+    assertTrue(service.hasWings(type))
+}</code></pre></div></div></section>
+<section id="parameterizedtest_2" data-transition="fade"><h2>ParameterizedTest</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@ParameterizedTest
+@MethodSource("hasWingsSource")
+void hasWings(HasWingsData data) {
+    assertThat(service.hasWings(data.type)).isEqualTo(data.expected);
 }</code></pre></div></div>
-<aside class="notes"><div class="paragraph"><p>@ValueSource, @CsvSource, @MethodSource</p></div></aside></section></section>
-<section><section id="view_gate"><h2>View Gate</h2><div class="paragraph"><p>myTestWithANameThatSayWhatItDoes()</p></div></section><section id="displayname" data-transition="fade"><h2>DisplayName</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@DisplayName("Map pony list to ponyDto list")
-void mapPonyListToPonyDtoList() { }</code></pre></div></div></section><section id="displayname_2" data-transition="fade"><h2>DisplayName</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Nested
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.
+.
+.
+.
+.
+.</code></pre></div></div></section>
+<section id="parameterizedtest_3" data-transition="fade"><h2>ParameterizedTest</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@ParameterizedTest
+@MethodSource("hasWingsSource")
+void hasWings(HasWingsData data) {
+    assertThat(service.hasWings(data.type)).isEqualTo(data.expected);
+}</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">private Stream&lt;HasWingsData&gt; hasWingsSource() {
+    return Stream.of(
+            new HasWingsData(Pegasi, true),
+            new HasWingsData(Unicorns, false),
+            new HasWingsData(Earth, false)
+    );
+}</code></pre></div></div></section>
+<section id="parameterizedtest_4"><h2>ParameterizedTest</h2><div class="paragraph"><p><span class="image"><img src="images/parametrizedTestResult.png" alt="parametrizedTestResult" width="70%"></span></p></div>
+<aside class="notes"><div class="paragraph"><p>@ValueSource, @CsvSource, @MethodSource</p></div></aside></section>
+<section id="view_gate"><h2>View Gate</h2><div class="paragraph"><p>myTestWithANameThatSayWhatItDoes()</p></div></section>
+<section id="displayname" data-transition="fade"><h2>DisplayName</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@DisplayName("Map pony list to ponyDto list")
+void mapPonyListToPonyDtoList() { }</code></pre></div></div></section>
+<section id="displayname_2" data-transition="fade"><h2>DisplayName</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Nested
 @DisplayName("List all")
-class ListAll { }</code></pre></div></div></section></section>
-<section><section id="insanity_gate"><h2>Insanity Gate</h2><div class="paragraph"><p>Use kotlin</p></div></section><section id="backtriks"><h2>Backtriks</h2><div class="paragraph"><p>Method name is the new DisplayName</p></div>
-<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun `Map pony list to ponyDto list`() { }</code></pre></div></div></section><section id="default_object_builder"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">data class Pony(val name:String, val type:String)
+class ListAll { }</code></pre></div></div></section>
+<section id="displayname_3" data-transition="fade"><h2>DisplayName</h2><div class="paragraph"><p><span class="image"><img src="images/displayName.png" alt="displayName" width="50%"></span></p></div></section>
+<section id="insanity_gate"><h2>Insanity Gate</h2><div class="paragraph"><p><span class="fragment">Use kotlin</span></p></div></section>
+<section id="backtriks" data-transition="fade"><h2>Backtriks</h2><div class="paragraph"><p>Method name is the new DisplayName</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">@Test @DisplayName("Map pony list to ponyDto list")
+void mapPonyListToPonyDtoList { }</code></pre></div></div></section>
+<section id="backtriks_2" data-transition="fade"><h2>Backtriks</h2><div class="paragraph"><p>Method name is the new DisplayName</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">@Test
+fun `Map pony list to ponyDto list`() { }</code></pre></div></div></section>
+<section id="default_object_builder"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">Pony pinkie = new Pony("Pinkie Pie", Earth)
+Pony bigM = new Pony("Big McIntosh", Earth)</code></pre></div></div></section>
+<section id="default_object_builder_2" data-transition="fade"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="hideCode language-hideCode">.
+.
+.
+.</code></pre></div></div></section>
+<section id="default_object_builder_3" data-transition="fade"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun myTest() {
+    val pinkie = newPony()
 
-fun newPony(name: String = "Pinkie Pie",
-            type: String = "Earth")
-        = Pony(name, type)
 
-fun myTest() {
-    val p = newPony("Big McIntosh")
-}</code></pre></div></div></section><section id="easy_parametrize_test"><h2>Easy parametrize test</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">@ParameterizedTest
-@MethodSource("validNameProvider")
-fun `get by name`(data: TestData) {
-    assertThat(getByName(data.name)).isEqualTo(data.expected)
-}
-private fun validTokenProvider() = Stream.of(
-    TestData("Pinkie Pie", newPony("Pinkie Pie")),
-    TestData("Big McIntosh", newPony("Big McIntosh"))
-)
-data class TestData(
-    val name: String,
-    val expected: Pony
-)</code></pre></div></div></section></section>
-<section id="death_gate"><h2>Death Gate</h2><div class="paragraph"><p><span class="fragment">Package protected</span></p></div>
+}</code></pre></div></div></section>
+<section id="default_object_builder_4" data-transition="fade"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun myTest() {
+    val pinkie = newPony()
+    val bigM = newPony(name = "Big McIntosh")
+
+}</code></pre></div></div></section>
+<section id="default_object_builder_5" data-transition="fade"><h2>Default object builder</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }</code></pre></div></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">fun myTest() {
+    val pinkie = newPony()
+    val bigM = newPony(name = "Big McIntosh")
+    val flying = newPony(type = Pegasi)
+}</code></pre></div></div></section>
+<section id="easy_parametrize_test" data-transition="fade"><h2>Easy parametrize test</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="java language-java">class HasWingsData {
+    public PonyType type;
+    public boolean expected;
+
+    public HasWingsData(PonyType type, boolean expected) {
+        this.type = type;
+        this.expected = expected;
+    }
+
+    @Override
+    public String toString() {
+        return "HasWingsData{" +
+                "type=" + type +
+                ", expected=" + expected +
+                '}';
+    }
+}</code></pre></div></div></section>
+<section id="easy_parametrize_test_2" data-transition="fade"><h2>Easy parametrize test</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">data class HasWingsData(val pony:Pony, val expected:Boolean)</code></pre></div></div></section>
+<section id="easy_parametrize_test_3"><h2>Easy parametrize test</h2><div class="listingblock"><div class="content"><pre class="highlight"><code data-noescape class="kotlin language-kotlin">private fun hasWingsSource() = Stream.of(
+    HasWingsData(newPony(type=Earth), false),
+    HasWingsData(newPony(type=Pegasi), true)
+)</code></pre></div></div></section>
+<section id="death_gate"><h2>Death Gate</h2><div class="paragraph"><p><span class="fragment">Package private</span></p></div>
 <div class="paragraph"><p><span class="fragment">Tag</span></p></div>
 <div class="paragraph"><p><span class="fragment">Mockk</span></p></div>
 <div class="paragraph"><p><span class="fragment">Assertk</span></p></div>
-<div class="paragraph"><p><span class="fragment">Mutation testing</span></p></div></section>
+<div class="paragraph"><p><span class="fragment">Mutation testing</span></p></div>
+<aside class="notes"><div class="paragraph"><p>Package private : Less is more</p></div>
+<div class="paragraph"><p>Tag : @Category mais avec de simple string</p></div>
+<div class="paragraph"><p>Mockk : Alternative a mockito surtout pour kotlin</p></div>
+<div class="paragraph"><p>Assertk : Pas aussi rempli que assertJ mais bon chalenger</p></div>
+<div class="paragraph"><p>Mutation testing: Meilleur couverture de test</p></div></aside></section>
 <section id="tldr"><h2>TL;DR</h2><div class="paragraph"><p><span class="fragment">Show love with your tests!</span></p></div>
 <div class="paragraph"><p><span class="fragment">Organize them</span></p></div>
 <div class="paragraph"><p><span class="fragment">Make them talk friendly</span></p></div>

@@ -51,3 +51,11 @@
     -webkit-transform: rotate(45deg);  
     transform: rotate(45deg);
   }
+
+  .hideCode {
+    opacity: 0;
+  }
+
+  .hidden {
+    opacity: 0;
+  }
