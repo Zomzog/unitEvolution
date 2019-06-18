@@ -1,0 +1,90 @@
+== Life Gate
+
+Class with hundred of tests
+
+[transition=fade]
+== Messy
+
+[source, java]
+----
+class PonyControllerTest {
+
+    @Test
+    void withoutFilters() throws Exception { ... }
+
+    @Test
+    void byType() throws Exception { ... }
+
+    @Test
+    void create() throws Exception { ... }
+
+
+    ...
+}
+----
+
+[transition=fade]
+== Nested
+[source, java]
+----
+class PonyControllerTest {
+    @Nested
+    class ListAll {
+
+        @Test
+        void withoutFilters() throws Exception { ... }
+
+        @Test
+        void byType() throws Exception { ... }
+    }
+
+    @Nested 
+    class Create { ... }
+}
+----
+
+[transition=fade]
+== Nested
+
+image::defaultRun.png[width=50%]
+
+[.hidden]
+image::nestedRun.png[width=50%]
+
+[transition=fade]
+== Nested
+
+image::defaultRun.png[width=50%]
+
+image::nestedRun.png[width=50%]
+
+[transition=fade]
+== Slow
+
+[source, java]
+----
+// default @TestInstance(Lifecycle.PER_METHOD)
+class PonyServiceTest {
+    private SlowToCreate service = new SlowToCreate();
+}
+----
+
+[transition=fade]
+== ClassTest
+
+[source, java]
+----
+@TestInstance(Lifecycle.PER_CLASS)
+class PonyServiceTest {
+    private SlowToCreate service = new SlowToCreate();
+}
+----
+
+[transition=fade]
+== ClassTest global
+
+[source, java]
+----
+// junit-platform.properties
+junit.jupiter.testinstance.lifecycle.default = per_class
+----

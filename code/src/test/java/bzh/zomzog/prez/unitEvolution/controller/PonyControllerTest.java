@@ -34,9 +34,10 @@ class PonyControllerTest {
     private PonyService service;
 
     @Nested
+    @DisplayName("List all")
     class ListAll {
 
-        @DisplayName("List all without filters")
+        @DisplayName("without filters")
         @Test
         void withoutFilters() throws Exception {
 
@@ -68,7 +69,7 @@ class PonyControllerTest {
                     .andExpect(jsonPath("$[1].type").value(pony2.getType().name()));
         }
 
-        @DisplayName("List all by type")
+        @DisplayName("by type")
         @Test
         void byType() throws Exception {
 
@@ -102,9 +103,10 @@ class PonyControllerTest {
     }
 
     @Nested
+    @DisplayName("Get by Id")
     class GetById {
 
-        @DisplayName("Get by valid id")
+        @DisplayName("valid id")
         @Test
         void validId() throws Exception {
 
@@ -124,7 +126,7 @@ class PonyControllerTest {
                     .andExpect(jsonPath("$.type").value(pony1.getType().name()));
         }
 
-        @DisplayName("Get by invalid id return not found")
+        @DisplayName("invalid id return not found")
         @Test
         void invalidId() throws Exception {
 

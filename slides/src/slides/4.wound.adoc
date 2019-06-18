@@ -1,0 +1,218 @@
+[transition=fade]
+== Wound Gate
+
+Understand the error
+
+[source, java]
+----
+assertEquals(2, myList.size());
+assertEquals("Rainbow Dash", myList.get(0).getName());
+assertEquals("Pinkie Pie", myList.get(1).getName());
+----
+[source, hideCode]
+----
+org.opentest4j.AssertionFailedError: 
+Expected :2
+Actual   :1
+----
+
+[transition=fade]
+== Wound Gate
+
+Understand the error
+
+[source, java]
+----
+assertEquals(2, myList.size());
+assertEquals("Rainbow Dash", myList.get(0).getName());
+assertEquals("Pinkie Pie", myList.get(1).getName());
+----
+[source, java]
+----
+org.opentest4j.AssertionFailedError: 
+Expected :2
+Actual   :1
+----
+
+[transition=fade]
+== Wound Gate
+
+Understand the error
+
+[source, java]
+----
+assertEquals(2, myList.size());
+assertEquals("Rainbow Dash", myList.get(0).getName());
+assertEquals("Pinkie Pie", myList.get(1).getName());
+----
+[source, java]
+----
+org.opentest4j.AssertionFailedError: 
+Expected :Rainbow Dash
+Actual   :Pinkie Pie
+----
+
+== AssertJ
+
+Fluent assertions for java
+
+[transition=fade]
+== Collection
+
+[source, java]
+----
+assertThat(myList)
+    .contains(pinkiePie, rainbowDash);
+----
+
+[source, hideCode]
+----
+.
+.
+----
+
+[transition=fade]
+== Collection
+
+[source, java]
+----
+assertThat(myList)
+    .contains(pinkiePie, rainbowDash);
+----
+
+[source, java]
+----
+assertThat(myList)
+    .containsExactlyInAnyOrder(pinkiePie, rainbowDash);
+----
+
+[transition=fade]
+== Collection
+
+[source, java]
+----
+java.lang.AssertionError: 
+Expecting:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]>
+
+
+
+
+
+
+
+at bzh.MyTest.test(MyTest.java:25)
+----
+
+[transition=fade]
+== Collection
+
+[source, java]
+----
+java.lang.AssertionError: 
+Expecting:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]>
+to contain exactly in any order:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Rainbow Dash', type=null}]>
+
+
+
+
+at bzh.MyTest.test(MyTest.java:25)
+----
+
+[transition=fade]
+== Collection
+
+[source, java]
+----
+java.lang.AssertionError: 
+Expecting:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]>
+to contain exactly in any order:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Rainbow Dash', type=null}]>
+elements not found:
+  <[PonyDto{id='null', name='Rainbow Dash', type=null}]>
+
+
+at bzh.MyTest.test(MyTest.java:25)
+----
+
+[transition=fade]
+== Collection
+
+[source, java]
+----
+java.lang.AssertionError: 
+Expecting:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Big McIntosh', type=null}]>
+to contain exactly in any order:
+  <[PonyDto{id='null', name='Pinkie Pie', type=null},
+    PonyDto{id='null', name='Rainbow Dash', type=null}]>
+elements not found:
+  <[PonyDto{id='null', name='Rainbow Dash', type=null}]>
+and elements not expected:
+  <[PonyDto{id='null', name='Big McIntosh', type=null}]>
+at bzh.MyTest.test(MyTest.java:25)
+----
+
+
+[transition=fade]
+== Equals
+
+[source, hideCode]
+----
+.
+.
+----
+
+[source, hideCode]
+----
+.
+.
+----
+
+[transition=fade]
+== Equals
+
+[source, java]
+----
+assertThat(fromDB)
+    .isEqualToIgnoringGivenFields(expected, "id");
+----
+
+[source, hideCode]
+----
+.
+.
+----
+
+[transition=fade]
+== Equals
+
+[source, java]
+----
+assertThat(fromDB)
+    .isEqualToIgnoringGivenFields(expected, "id");
+----
+
+[source, java]
+----
+assertThat(fromDB)
+    .isEqualToComparingFieldByField(expected);
+----
+
+== Chaining
+
+[source, java]
+----
+assertThat(fellowshipOfTheRing).hasSize(9)
+                               .contains(frodo, sam)
+                               .doesNotContain(sauron);
+----

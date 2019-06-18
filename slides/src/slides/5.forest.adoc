@@ -1,0 +1,118 @@
+
+[transition=fade]
+== Forest Gate
+Multiple input/output
+[source, hideCode]
+----
+.
+.
+.
+.
+.
+.
+----
+
+[transition=fade]
+== Forest Gate
+Multiple input/output
+[source, java]
+----
+@Test
+public void hasWings() {
+    assertTrue(service.hasWings(Pegasi));
+    
+
+}
+----
+
+[transition=fade]
+== Forest Gate
+Multiple input/output
+[source, java]
+----
+@Test
+public void hasWings() {
+    assertTrue(service.hasWings(Pegasi));
+    assertFalse(service.hasWings(Unicorns));
+
+}
+----
+
+[transition=fade]
+== Forest Gate
+Multiple input/output
+[source, java]
+----
+@Test
+public void hasWings() {
+    assertTrue(service.hasWings(Pegasi));
+    assertFalse(service.hasWings(Unicorns));
+    assertFalse(service.hasWings(Earth));
+}
+----
+
+== ParameterizedTest
+
+[source, java]
+----
+@ParameterizedTest
+@EnumSource(FlyingType.class)
+void hasWings(FlyingType type) {
+    assertTrue(service.hasWings(type))
+}
+----
+
+
+[transition=fade]
+== ParameterizedTest
+
+[source, java]
+----
+@ParameterizedTest
+@MethodSource("hasWingsSource")
+void hasWings(HasWingsData data) {
+    assertThat(service.hasWings(data.type)).isEqualTo(data.expected);
+}
+----
+
+[source, hideCode]
+----
+.
+.
+.
+.
+.
+.
+.
+----
+
+[transition=fade]
+== ParameterizedTest
+
+[source, java]
+----
+@ParameterizedTest
+@MethodSource("hasWingsSource")
+void hasWings(HasWingsData data) {
+    assertThat(service.hasWings(data.type)).isEqualTo(data.expected);
+}
+----
+
+[source, java]
+----
+private Stream<HasWingsData> hasWingsSource() {
+    return Stream.of(
+            new HasWingsData(Pegasi, true),
+            new HasWingsData(Unicorns, false),
+            new HasWingsData(Earth, false)
+    );
+}
+----
+
+== ParameterizedTest
+image:parametrizedTestResult.png[width=70%]
+
+[NOTE.speaker]
+--
+@ValueSource, @CsvSource, @MethodSource
+--

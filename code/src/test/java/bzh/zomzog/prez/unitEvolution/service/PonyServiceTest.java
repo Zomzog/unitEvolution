@@ -3,6 +3,7 @@ package bzh.zomzog.prez.unitEvolution.service;
 
 import bzh.zomzog.prez.unitEvolution.domain.Pony;
 import bzh.zomzog.prez.unitEvolution.domain.PonyDto;
+import bzh.zomzog.prez.unitEvolution.domain.PonyType;
 import bzh.zomzog.prez.unitEvolution.repository.PonyRepository;
 import bzh.zomzog.prez.unitEvolution.service.mapper.MongoMapperImpl;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
@@ -10,7 +11,10 @@ import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapperImpl;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
@@ -19,16 +23,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
+import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Pegasi;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+
+@TestInstance(PER_CLASS)
 @ExtendWith(MockitoExtension.class)
 class PonyServiceTest {
 
@@ -45,10 +55,10 @@ class PonyServiceTest {
     void listAll() {
         // GIVEN
         Pony pony = Pony.newBuilder()
-            .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
-            .name("Rarity")
-            .type(Unicorns)
-            .build();
+                .id(new ObjectId("5cceb7e452d0e307dd8e7576"))
+                .name("Rarity")
+                .type(Unicorns)
+                .build();
 
         when(repository.findAllByType(Unicorns)).thenReturn(Collections.singletonList(pony));
 
@@ -151,4 +161,47 @@ class PonyServiceTest {
         // WHEN
         service.save(ponyDto);
     }
+
+    @Test
+    public void hasWings() {
+        assertTrue(service.hasWings(Pegasi));
+        assertFalse(service.hasWings(Unicorns));
+        assertFalse(service.hasWings(Earth));
+    }
+
+
+    @ParameterizedTest
+    @MethodSource("hasWingsSource")
+    void hasWings(HasWingsData data) {
+        assertThat(service.hasWings(data.type)).isEqualTo(data.expected);
+    }
+
+    private Stream<HasWingsData> hasWingsSource() {
+        return Stream.of(
+                new HasWingsData(Pegasi, true),
+                new HasWingsData(Unicorns, false),
+                new HasWingsData(Earth, false)
+        );
+    }
+
+
+    class HasWingsData {
+        public PonyType type;
+        public boolean expected;
+
+        public HasWingsData(PonyType type, boolean expected) {
+            this.type = type;
+            this.expected = expected;
+        }
+
+        @Override
+        public String toString() {
+            return "HasWingsData{" +
+                    "type=" + type +
+                    ", expected=" + expected +
+                    '}';
+        }
+    }
+
+
 }

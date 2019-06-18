@@ -1,0 +1,27 @@
+
+
+== Eight Gates of unit
+
+image::gates.png[]
+
+
+[NOTE.speaker]
+--
+Blague pour ceux qui ne connaissent pas de juste ce dire qu'il y a 8 etapes 
+--
+
+include::1.open.adoc[]
+
+include::2.energy.adoc[]
+
+include::3.life.adoc[]
+
+include::4.wound.adoc[]
+
+include::5.forest.adoc[]
+
+include::6.view.adoc[]
+
+include::7.insanity.adoc[]
+
+include::8.death.adoc[]

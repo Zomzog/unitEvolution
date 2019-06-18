@@ -11,14 +11,21 @@
 [%notitle]
 [.title]
 == Title
-Enlarge your test
+Unit toolkit
 
 [NOTE.speaker]
 --
-Trouver un titre
+
+Enlarge your test
+
+Unit evolution
+
+My Little Unit Toolbox
 --
 
 include::slides/intro.adoc[]
+
+include::slides/8gates.adoc[]
 
 include::slides/conclusion/index.adoc[]
 

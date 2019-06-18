@@ -15,8 +15,6 @@ import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Earth;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Pegasi;
 import static bzh.zomzog.prez.unitEvolution.domain.PonyType.Unicorns;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 @DataMongoTest
 class PonyRepositoryTest {

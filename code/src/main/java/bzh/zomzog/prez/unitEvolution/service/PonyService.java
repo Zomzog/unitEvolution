@@ -6,6 +6,8 @@ import bzh.zomzog.prez.unitEvolution.domain.PonyType;
 import bzh.zomzog.prez.unitEvolution.repository.PonyRepository;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
 import org.bson.types.ObjectId;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,4 +44,9 @@ public class PonyService {
 
         return mapper.map(created);
     }
+
+    public boolean hasWings(PonyType type) {
+        return PonyType.Pegasi.equals(type);
+    }
+
 }

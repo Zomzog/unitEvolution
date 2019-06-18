@@ -1,109 +1,95 @@
-== Eight Gates of unit
 
-image::gates.png[]
-
-
-[NOTE.speaker]
---
-Blague pour ceux qui ne connaissent pas de juste ce dire qu'il y a 8 etapes 
---
-
-
-
-== Open Gate
-
-Having (legacy) unit test
+== From legacy
 
 [fragment]#Junit 4#
 
-[fragment]#Mockito#
-
 [fragment]#Springboot test#
 
+[fragment]#Mockito#
 
 [NOTE.speaker]
 --
-Dire que c'est un projet classique
+Junit 4 car SpringBoot donc Mockito
 --
 
+[transition=fade]
+== Good unit test
 
-== Energy Gate
+[fragment]#Independent and isolated#
 
-Moving to junit 5
+[fragment]#Repeatable#
+
+[fragment]#Fast#
+
+[fragment]#Descriptive#
 
 [NOTE.speaker]
 --
-Ajouter les dependances, 
-montrer que ca marche toujours avec le vintage runner
+Ne pas faire dependre de l'ordre, faire attention aux choses qui restent
+
+Ne pas utiliser de random quand la valeur a de l'importance
+
+Si c'est trop lent on fini par ne pas les executer
+
+Les tests veulent nous parler
 --
 
-=== Ignore
+[transition=fade]
+== Good unit test
 
-[NOTE.speaker]
---
-Dire que le disabled va plus loins (genre seulement sur windows...)
---
+Independent and isolated
 
-=== Exception
+Repeatable
 
-[NOTE.speaker]
---
-Montrer l'interet de tester aussi le contenu de l'exception
---
+Fast
 
-== Life Gate
+**Descriptive**
 
-Using junit 5
+== Descriptive coverage
 
-=== Nested
-[NOTE.speaker]
---
-Montrer groupement dans le service
---
+Which tests covers deleteAll function?
 
-=== ClassTest
+[transition=fade]
+== Mixed
 
-[NOTE.speaker]
---
-Faire un sout("HOHOHO") sur le constructeur classe test pour montrer le drame
---
+image::test-result-base.png[]
 
-== Wound Gate
+[transition=fade]
+== Mixed
 
-AssertJ
+image::test-result-base-deleteall.png[]
 
-[fragment]#assertEqualsIgnoreProperty#
+== Descriptive coverage
 
-[fragment]#assertContainInAnyOrder#
+What is the error?
 
-== Forest Gate
+[transition=fade]
+== Descriptive errors
 
-[fragment]#Parametrize test#
+[source, java]
+----
+assertEquals("Must contains 2 ponies", 2, ponies.size());
+----
 
-== View Gate
+[source, hideCode]
+----
+.
+.
+.
+----
 
-[fragment]#DisplayName#
+[transition=fade]
+== Descriptive errors
 
-== Insanity Gate
+[source, java]
+----
+assertEquals("Must contains 2 ponies", 2, ponies.size());
+----
 
-Use kotlin 
+[source, java]
+----
+java.lang.AssertionError: Must contains 2 ponies 
+Expected :2
+Actual   :1
+----
 
-[fragment]#Backtriks#
-
-[fragment]#Default object builder#
-
-[fragment]#Easy parametrize test#
-
-== Death Gate
-
-[fragment]#Class package protected#
-
-[fragment]#Tag#
-
-[fragment]#Mockk#
-
-[fragment]#Assertk#
-
-[fragment]#Constructeur injection#
-
-[fragment]#Mutation testing#

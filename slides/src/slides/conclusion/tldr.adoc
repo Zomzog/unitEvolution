@@ -1,12 +1,12 @@
 == TL;DR
 
-[fragment]#Design API with a tools#
+[fragment]#Show love with your tests!#
 
-[fragment]#Generate client and server from it#
+[fragment]#Organize them#
 
-[fragment]#Use a mapper to your domain objects#
+[fragment]#Make them talk friendly#
 
-[fragment]#Show love with your APIs#
+[fragment]#Find your preferred toolbox#
 
 
 [NOTE.speaker]

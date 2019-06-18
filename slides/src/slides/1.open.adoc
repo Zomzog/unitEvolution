@@ -1,0 +1,48 @@
+== Open Gate
+
+Moving to junit 5
+
+[NOTE.speaker]
+--
+Ajouter les dependances, 
+montrer que ca marche toujours avec le vintage runner
+--
+
+[transition=fade]
+== Dependency
+[source, java]
+----
+testCompile("junit:junit:4.12")
+----
+
+[transition=fade]
+== Dependency
+[source, java]
+----
+testCompile("org.junit.jupiter:junit-jupiter-api:5.4.2")
+testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+----
+
+
+[NOTE.speaker]
+--
+Junit 5 = multiple modules
+--
+
+== Engines
+
+[source, java]
+----
+testRuntime("org.junit.vintage:junit-vintage-engine:5.4.2")
+----
+[source, java]
+----
+testRuntime("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+----
+
+image::engines.png[]
+
+[NOTE.speaker]
+--
+Parler de l'engine vintage pour les tests junit 4
+--

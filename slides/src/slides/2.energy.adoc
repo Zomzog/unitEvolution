@@ -1,0 +1,97 @@
+== Energy Gate
+
+[transition=fade]
+== Import
+
+[source, java]
+----
+import org.junit.Test;
+----
+
+[source, hideCode]
+----
+.
+----
+
+[transition=fade]
+== Import
+
+[source, java]
+----
+import org.junit.Test;
+----
+
+[source, java]
+----
+import org.junit.jupiter.api.Test;
+----
+
+[transition=fade]
+== RunWith and Rules
+
+[.nocross]
+@Rule @RunWith @ClassRule
+
+[.nocross]
+{nbsp} +
+
+[transition=fade]
+== RunWith and Rules
+
+[.cross]
+@Rule @RunWith @ClassRule
+
+@ExtendWith
+
+[NOTE.speaker]
+--
+Dire que c'est repetable contrairement au runWith
+--
+
+[transition=fade]
+== Exception
+
+[source, java]
+----
+@Test(expected = MyException.class)
+// MyTest
+----
+
+[transition=fade]
+== Exception
+
+[source, java]
+----
+MyException e = assertThrows(
+                  MyException.class, 
+                  () -> service.save(ponyDto));
+----
+
+
+[NOTE.speaker]
+--
+Parler l'interet de tester aussi le contenu de l'exception
+--
+
+[transition=fade]
+== Ignore
+
+@Ignore
+
+{nbsp} +
+
+{nbsp} +
+
+[transition=fade]
+== Disabled
+
+@Disabled
+
+[fragment]#@DisabledOnOs(OS.WINDOWS)#
+
+[fragment]#@DisabledOnJre(JRE.JAVA_8)#
+
+[NOTE.speaker]
+--
+Dire que le disabled va plus loins (genre seulement sur windows...)
+--

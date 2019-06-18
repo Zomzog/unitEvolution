@@ -1,0 +1,24 @@
+== Death Gate
+
+[fragment]#Package private#
+
+[fragment]#Tag#
+
+[fragment]#Mockk#
+
+[fragment]#Assertk#
+
+[fragment]#Mutation testing#
+
+[NOTE.speaker]
+--
+Package private : Less is more
+
+Tag : @Category mais avec de simple string
+
+Mockk : Alternative a mockito surtout pour kotlin
+
+Assertk : Pas aussi rempli que assertJ mais bon chalenger
+
+Mutation testing: Meilleur couverture de test
+--

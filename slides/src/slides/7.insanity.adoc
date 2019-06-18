@@ -1,0 +1,141 @@
+== Insanity Gate
+
+[fragment]#Use kotlin#
+
+[transition=fade]
+== Backtriks
+Method name is the new DisplayName
+[source, java]
+----
+@Test @DisplayName("Map pony list to ponyDto list")
+void mapPonyListToPonyDtoList { }
+----
+
+[transition=fade]
+== Backtriks
+Method name is the new DisplayName
+[source, kotlin]
+----
+@Test 
+fun `Map pony list to ponyDto list`() { }
+----
+
+== Default object builder
+[source, java]
+----
+Pony pinkie = new Pony("Pinkie Pie", Earth)
+Pony bigM = new Pony("Big McIntosh", Earth)
+----
+
+[transition=fade]
+== Default object builder
+[source, kotlin]
+----
+fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }
+----
+
+[source, hideCode]
+----
+.
+.
+.
+.
+----
+
+[transition=fade]
+== Default object builder
+[source, kotlin]
+----
+fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }
+----
+
+[source, kotlin]
+----
+fun myTest() {
+    val pinkie = newPony()
+
+    
+}
+----
+
+[transition=fade]
+== Default object builder
+[source, kotlin]
+----
+fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }
+----
+
+[source, kotlin]
+----
+fun myTest() {
+    val pinkie = newPony()
+    val bigM = newPony(name = "Big McIntosh")
+
+}
+----
+
+[transition=fade]
+== Default object builder
+[source, kotlin]
+----
+fun newPony(name: String = "Pinkie Pie",
+            type: PonyType = Earth) {
+                return Pony(name, type)
+            }
+----
+
+[source, kotlin]
+----
+fun myTest() {
+    val pinkie = newPony()
+    val bigM = newPony(name = "Big McIntosh")
+    val flying = newPony(type = Pegasi)
+}
+----
+[transition=fade]
+== Easy parametrize test
+[source, java]
+----
+class HasWingsData {
+    public PonyType type;
+    public boolean expected;
+
+    public HasWingsData(PonyType type, boolean expected) {
+        this.type = type;
+        this.expected = expected;
+    }
+
+    @Override
+    public String toString() {
+        return "HasWingsData{" +
+                "type=" + type +
+                ", expected=" + expected +
+                '}';
+    }
+}
+----
+
+[transition=fade]
+== Easy parametrize test
+[source, kotlin]
+----
+data class HasWingsData(val pony:Pony, val expected:Boolean)
+----
+
+== Easy parametrize test
+[source, kotlin]
+----
+private fun hasWingsSource() = Stream.of(
+    HasWingsData(newPony(type=Earth), false),
+    HasWingsData(newPony(type=Pegasi), true)
+)
+----
