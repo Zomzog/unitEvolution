@@ -33,23 +33,20 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 @TestInstance(PER_CLASS)
-@ExtendWith(MockitoExtension.class)
 class PonyServiceTest {
 
-    @InjectMocks
-    private PonyService service;
+    private PonyRepository repository = mock(PonyRepository.class);
 
-    @Mock
-    private PonyRepository repository;
-
-    @Spy
     private PonyMapper mapper = new PonyMapperImpl(new MongoMapperImpl());
+
+    private PonyService service = new PonyService(repository, mapper);
 
     @Test
     void listAll() {
@@ -186,10 +183,10 @@ class PonyServiceTest {
 
 
     class HasWingsData {
-        public PonyType type;
-        public boolean expected;
+        PonyType type;
+        boolean expected;
 
-        public HasWingsData(PonyType type, boolean expected) {
+        HasWingsData(PonyType type, boolean expected) {
             this.type = type;
             this.expected = expected;
         }

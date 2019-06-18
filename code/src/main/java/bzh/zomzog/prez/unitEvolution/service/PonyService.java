@@ -6,9 +6,6 @@ import bzh.zomzog.prez.unitEvolution.domain.PonyType;
 import bzh.zomzog.prez.unitEvolution.repository.PonyRepository;
 import bzh.zomzog.prez.unitEvolution.service.mapper.PonyMapper;
 import org.bson.types.ObjectId;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,11 +14,14 @@ import java.util.Optional;
 @Service
 public class PonyService {
 
-    @Autowired
-    private PonyRepository repository;
+    private final PonyRepository repository;
 
-    @Autowired
-    private PonyMapper mapper;
+    private final PonyMapper mapper;
+
+    public PonyService(PonyRepository repository, PonyMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     public List<PonyDto> listAll(PonyType type) {
         List<Pony> allByType = repository.findAllByType(type);

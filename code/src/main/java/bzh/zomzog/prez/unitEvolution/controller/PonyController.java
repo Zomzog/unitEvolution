@@ -19,8 +19,11 @@ import java.util.List;
 @RequestMapping("/ponies")
 public class PonyController {
 
-    @Autowired
-    private PonyService ponyService;
+    private final PonyService ponyService;
+
+    public PonyController(PonyService ponyService) {
+        this.ponyService = ponyService;
+    }
 
     @GetMapping
     public ResponseEntity<List<PonyDto>> listAll(@RequestParam(required = false) PonyType type) {
