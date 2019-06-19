@@ -59,7 +59,7 @@ image::test-result-base.png[]
 
 image::test-result-base-deleteall.png[]
 
-== Descriptive coverage
+== Descriptive errors
 
 What is the error?
 
@@ -68,7 +68,7 @@ What is the error?
 
 [source, java]
 ----
-assertEquals("Must contains 2 ponies", 2, ponies.size());
+assertEquals("Must contain 2 ponies", 2, ponies.size());
 ----
 
 [source, hideCode]
@@ -83,12 +83,12 @@ assertEquals("Must contains 2 ponies", 2, ponies.size());
 
 [source, java]
 ----
-assertEquals("Must contains 2 ponies", 2, ponies.size());
+assertEquals("Must contain 2 ponies", 2, ponies.size());
 ----
 
 [source, java]
 ----
-java.lang.AssertionError: Must contains 2 ponies 
+java.lang.AssertionError: Must contain 2 ponies 
 Expected :2
 Actual   :1
 ----

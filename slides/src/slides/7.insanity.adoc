@@ -3,7 +3,7 @@
 [fragment]#Use kotlin#
 
 [transition=fade]
-== Backtriks
+== Backticks
 Method name is the new DisplayName
 [source, java]
 ----
@@ -12,7 +12,7 @@ void mapPonyListToPonyDtoList { }
 ----
 
 [transition=fade]
-== Backtriks
+== Backticks
 Method name is the new DisplayName
 [source, kotlin]
 ----
